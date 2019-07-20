@@ -1,6 +1,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <string>
 
 namespace fs = std::experimental::filesystem;
@@ -48,8 +49,10 @@ int main(int argc, char **argv)
             std::ofstream md(filename.string());
             md << "---" << std::endl
                << "title: " << tp.stem() << std::endl
-               << "date:  \"" << lt->tm_year + 1900 << "-" << lt->tm_mon << "-" << lt->tm_mday << "\"" << std::endl
-               << "url:   \"" << toPosixSlashes(url, instatic) << "\"" << std::endl
+               << "date:  \"" << lt->tm_year + 1900 << "-" 
+                          << std::setfill('0') << std::setw(2) << lt->tm_mon 
+                          << "-" << std::setfill('0') << std::setw(2) << lt->tm_mday << "\"" << std::endl
+               << "image:   \"" << toPosixSlashes(url, instatic) << "\"" << std::endl
                << "---" << std::endl;
 
         }
